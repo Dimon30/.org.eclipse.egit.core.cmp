@@ -17,9 +17,27 @@ public class Coordinates {
         this.x = x;
         this.y = y;
     }
+    public Coordinates(String coord){
+        if (coord.contains(",")){
+            this.x = Long.parseLong(coord.split(", ")[0]);
+            this.y = Double.parseDouble(coord.split(", ")[1]);
+        }
+        if (coord.contains(" ")){
+            this.x = Long.parseLong(coord.split(" ")[0]);
+            this.y = Double.parseDouble(coord.split(" ")[1]);
+        }
+        if (coord.contains(".")){
+            this.x = Long.parseLong(coord.split(". ")[0]);
+            this.y = Double.parseDouble(coord.split(". ")[1]);
+        }
+        if (coord.contains(",")){
+            this.x = Long.parseLong(coord.split("\n")[0]);
+            this.y = Double.parseDouble(coord.split("\n")[1]);
+        }
+    }
     public void print(){
-        System.out.println("Coordinates 'x' = " + this.x);
-        System.out.println("Coordinates 'y' = " + this.y);
+        System.out.println(" - Coordinates 'x' = " + this.x);
+        System.out.println(" - Coordinates 'y' = " + this.y);
     }
 
     public String getCoordinatesinXML(){

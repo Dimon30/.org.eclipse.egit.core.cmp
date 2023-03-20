@@ -19,9 +19,31 @@ public class Address
         this.town = town;
     }
 
+    public Address(String postalAddress) {
+        if (postalAddress.contains(", "))
+        {
+            try {
+                if (!postalAddress.split(", ")[0].equals("-"))
+                    this.zipCode = postalAddress.split(", ")[0];
+                if (!postalAddress.split(", ")[0].equals("- "))
+                    this.zipCode = postalAddress.split(", ")[0];
+                if (!postalAddress.split(", ")[1].equals("-"))
+                    this.street = postalAddress.split(", ")[1];
+                if (!postalAddress.split(", ")[1].equals("- "))
+                    this.street = postalAddress.split(", ")[1];;
+                if (!postalAddress.split(", ")[2].equals("-"))
+                    this.town = new Location(postalAddress);
+                if (!postalAddress.split(", ")[2].equals("- "))
+                    this.town = new Location(postalAddress);
+            } catch (IndexOutOfBoundsException e){
+                System.out.println("Incorrect data");
+            }
+        }
+    }
+
     public void print(){
-        System.out.println("ZipCode = " + this.zipCode);
-        System.out.println("Street = " + this.street);
+        System.out.println(" - ZipCode = " + this.zipCode);
+        System.out.println(" - Street = " + this.street);
         town.print();
     }
     public String getAddressinXML(){

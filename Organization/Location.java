@@ -17,10 +17,32 @@ public class Location {
         this.town = town;
     }
 
+    public Location(String postalAddress) {
+        if (postalAddress.contains(", "))
+        {
+            try {
+                if (!postalAddress.split(", ")[2].equals("-"))
+                    this.x = Integer.parseInt(postalAddress.split(", ")[2]);
+                if (!postalAddress.split(", ")[2].equals("- "))
+                    this.x = Integer.parseInt(postalAddress.split(", ")[2]);
+                if (!postalAddress.split(", ")[3].equals("-"))
+                    this.y = Long.parseLong(postalAddress.split(", ")[3]);
+                if (!postalAddress.split(", ")[3].equals("- "))
+                    this.y = Long.parseLong(postalAddress.split(", ")[3]);
+                if (!postalAddress.split(", ")[4].equals("-"))
+                    this.town = postalAddress.split(", ")[4];
+                if (!postalAddress.split(", ")[4].equals("- "))
+                    this.town = postalAddress.split(", ")[4];
+            } catch (IndexOutOfBoundsException e){
+                System.out.println("Incorrect data");
+            }
+        }
+    }
+
     public void print(){
-        System.out.println("Location 'x' = " + this.x);
-        System.out.println("Location 'y' = " + this.y);
-        System.out.println("Town = " + this.town);
+        System.out.println(" - Location 'x' = " + this.x);
+        System.out.println(" - Location 'y' = " + this.y);
+        System.out.println(" - Town = " + this.town);
     }
     public String getLocationinXML(){
         String start = "\t\t\t<Location>\n";

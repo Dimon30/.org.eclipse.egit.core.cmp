@@ -15,10 +15,11 @@ public class Organization
     private int id = 30; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    private java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Float annualTurnover; //Поле может быть null, Значение поля должно быть больше 0
     private OrganizationType type; //Поле может быть null
     private Address postalAddress; //Поле может быть null
+    private String lastUpdate;
 
     public Organization(String name, long x, double y, LocalDateTime creationDate, Float annualTurnover, OrganizationType type, Address ad){
         this.id = (int) (Math.random() * 999999999 + 1);
@@ -28,6 +29,7 @@ public class Organization
         this.annualTurnover = annualTurnover;
         this.type = type;
         this.postalAddress = ad;
+        this.lastUpdate = String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
     public Organization(String name, long x, double y, Float annualTurnover, OrganizationType type, Address ad){
@@ -38,15 +40,16 @@ public class Organization
         this.annualTurnover = annualTurnover;
         this.type = type;
         this.postalAddress = ad;
+        this.lastUpdate = String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
     public void print() {
-        System.out.println("id = " + this.id);
-        System.out.println("name = " + this.name);
+        System.out.println(" - id = " + this.id);
+        System.out.println(" - name = " + this.name);
         coordinates.print();
-        System.out.println("Date = " + this.creationDate);
-        System.out.println("Annual Turnover = " + this.annualTurnover);
-        System.out.println("Type = " + this.type);
+        System.out.println(" - Date = " + this.creationDate);
+        System.out.println(" - Annual Turnover = " + this.annualTurnover);
+        System.out.println(" - Type = " + this.type);
         postalAddress.print();
     }
     public String getName(){return this.name;}
@@ -60,8 +63,9 @@ public class Organization
         String annualTurnover = getAnnualTurnoverinXML();
         String type = getTypeinXML();
         String address = getAddressinXML();
+        String lastUpdate = "\t\t<lastUpdate>" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "</lastUpdate>\n";
         String end = "\t</Organization>\n";
-        return  start + id + name + coordinates + creationDate + annualTurnover + type + address + end;
+        return  start + id + name + coordinates + creationDate + annualTurnover + type + address + lastUpdate + end;
     }
     private String getIdinXML(){return "\t\t<id>" + String.valueOf(this.id) + "</id>\n";}
     private String getNameinXMl(){return "\t\t<name>" + this.name + "</name>\n";}
@@ -74,4 +78,24 @@ public class Organization
         this.creationDate = creationDate;
     }
     public void setId(int id){this.id = id;}
+    public void setLastUpdate(String s){this.lastUpdate = s;}
+    public String getLastUpdate(){return this.lastUpdate;}
+    public void setName(String name) {this.name = name;}
+    public void setType(String type) {this.type = OrganizationType.valueOf(type);}
+
+    public void setCoordinates(String coordinates) {
+        this.coordinates = new Coordinates(coordinates);
+    }
+
+    public void setAnnualTurnover(String annualTurnover) {
+        this.annualTurnover = Float.valueOf(annualTurnover);
+    }
+
+    public void setPostalAddress(String postalAddress) {
+        this.postalAddress = new Address(postalAddress);
+    }
+
+    public int getId() {
+        return id;
+    }
 }
