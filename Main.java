@@ -13,7 +13,7 @@ import java.util.*;
 
 import Auxiliary.Read_XML;
 import Auxiliary.Write_XML;
-import Commands.Command;
+import Commands.*;
 import Organization.*;
 import Server.Client;
 
@@ -21,8 +21,8 @@ public class Main {
 	public static void main(String[] args) throws FileNotFoundException {
 
 		//String filename = args[0];
-		String filename = "src/Organizations.xml";
-		String fileOut = "src/OutOrganizations.xml";
+		String filename = "Organizations.xml";
+		String fileOut = "OutOrganizations.xml";
 		Vector<Organization> Organizations = Read_XML.CreateVector(filename);
 		Client client = new Client(Organizations);
 		//ArrayList<Command> Commands = new ArrayList<>(Command);

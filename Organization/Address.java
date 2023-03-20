@@ -7,7 +7,9 @@
 
 package Organization;
 
-public class Address 
+import java.util.Arrays;
+
+public class Address
 {
     private String street; //Строка не может быть пустой, Поле может быть null
     private String zipCode; //Поле не может быть null
@@ -19,26 +21,36 @@ public class Address
         this.town = town;
     }
 
-    public Address(String postalAddress) {
+    public Address(String postalAddress, Address old) {
         if (postalAddress.contains(", "))
         {
             try {
-                if (!postalAddress.split(", ")[0].equals("-"))
-                    this.zipCode = postalAddress.split(", ")[0];
-                if (!postalAddress.split(", ")[0].equals("- "))
-                    this.zipCode = postalAddress.split(", ")[0];
-                if (!postalAddress.split(", ")[1].equals("-"))
-                    this.street = postalAddress.split(", ")[1];
-                if (!postalAddress.split(", ")[1].equals("- "))
-                    this.street = postalAddress.split(", ")[1];;
-                if (!postalAddress.split(", ")[2].equals("-"))
-                    this.town = new Location(postalAddress);
-                if (!postalAddress.split(", ")[2].equals("- "))
-                    this.town = new Location(postalAddress);
+                String[] split = Arrays.stream(postalAddress.split("[,\s]\s*")).map(String::trim).toArray(String[]::new);
+                if (split[0].equals("-"))
+                    this.zipCode = old.getZipCode();
+                if (split[1].equals("-"))
+                    this.street = old.getStreet();
+                if (split[2].equals("-")) {
+                    this.town = old.getTown();
+                }
+                this.street = split[1];
+                this.town = new Location(postalAddress);
             } catch (IndexOutOfBoundsException e){
                 System.out.println("Incorrect data");
             }
         }
+    }
+
+    private Location getTown() {
+        return this.town;
+    }
+
+    private String getStreet() {
+        return this.street;
+    }
+
+    private String getZipCode() {
+        return this.zipCode;
     }
 
     public void print(){

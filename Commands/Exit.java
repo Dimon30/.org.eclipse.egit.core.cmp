@@ -7,4 +7,8 @@ public class Exit extends Command{
     public static void exit(){
         System.exit(0);
     }
+
+    public static String getDescription() {return description;}
+
+    public static String getName() {return name;}
 }

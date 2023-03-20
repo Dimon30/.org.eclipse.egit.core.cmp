@@ -14,13 +14,13 @@ public class Help extends Command{
         System.out.println("-" + Remove.getName() + Remove.getDescription());
         System.out.println("-" + Clear.getName() + Clear.getDescription());
         System.out.println("-" + Save.getName() + Save.getDescription());
-        /*System.out.println("-" + Info.getName() + getDescription());
+        System.out.println("-" + Execute_script.getName() + Execute_script.getDescription());
+        System.out.println("-" + Exit.getName() + Exit.getDescription());
+        System.out.println("-" + Reorder.getName() + Reorder.getDescription());
+        System.out.println("-" + Sort.getName() + Sort.getDescription());
         System.out.println("-" + Info.getName() + getDescription());
         System.out.println("-" + Info.getName() + getDescription());
         System.out.println("-" + Info.getName() + getDescription());
-        System.out.println("-" + Info.getName() + getDescription());
-        System.out.println("-" + Info.getName() + getDescription());
-        System.out.println("-" + Info.getName() + getDescription());*/
 
     }
 

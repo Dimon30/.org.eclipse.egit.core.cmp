@@ -3,29 +3,41 @@ package Server;
 import Commands.*;
 import Organization.Organization;
 
-import java.util.Locale;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
 
 public class Client {
     private Vector<Organization> org;
-    public Client(Vector<Organization> org){
-        this.org = org;
-    }
+    private final Deque<String> history = new ArrayDeque<>(8);
+    public Client(Vector<Organization> org){this.org = org;}
     public void run() {
         Scanner scanner = new Scanner(System.in);
         //Show.show();
         Help.help();
-        System.out.print("Input command: ");
+        //System.out.print("Input command: ");
         loop(scanner);
+    }
+
+    private void memorize(final String command) {
+        history.offer(command);
+
+        if (history.size() > 8) {
+            history.pop();
+        }
     }
 
     /**
      * Loop of client commands.
      */
     public void loop(Scanner scan) {
-        while (scan.hasNext()) {
+        while (true) {
+            System.out.print("Input command: ");
+
+            if (!scan.hasNext()) {
+                break;
+            }
+
             String command = scan.nextLine();
+
             switch (command) {
                 case "help" -> Help.help();
                 case "info" -> Info.info(this.org);
@@ -42,22 +54,30 @@ public class Client {
                     String outfile = scan.nextLine();
                     Save.save(outfile, org);
                 }
-                case "exit" -> Exit.exit();/*
                 case "execute_script" -> {
-                    System.out.println("Input filename");
-                    execute_script(scan.nextLine());
+                    System.out.print("Input filename: ");
+                    Execute_script.execute_script(scan.nextLine(), org);
                 }
+                case "exit" -> Exit.exit();
+                case "reorder" -> Reorder.reorder(org);
+                case "sort" -> Sort.sort(org);
+                case "history" -> History.history(history);
+                /*
                 case "print_field_descending_distance" -> {
                     print_field_descending_distance();
                 }
                 case "filter_greater_than_distance" -> {
                     filter_greater_than_distance(scan);
                 }*/
-                default -> System.out.println(command + ": this command doesn't exist.");
+                default -> {
+                    System.out.println(command + ": this command doesn't exist.");
+                    continue;
+                }
             }
 
-            System.out.print("Input command: ");
+            memorize(command);
         }
+
         scan.close();
     }
 }

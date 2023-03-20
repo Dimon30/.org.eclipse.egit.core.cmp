@@ -92,7 +92,7 @@ public class Organization
     }
 
     public void setPostalAddress(String postalAddress) {
-        this.postalAddress = new Address(postalAddress);
+        this.postalAddress = new Address(postalAddress, this.postalAddress);
     }
 
     public int getId() {

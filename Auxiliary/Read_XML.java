@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static Auxiliary.OrganizatonSort.sort;
+
 public class Read_XML {
     public static Vector<Organization> CreateVector(String filename) throws FileNotFoundException {
         File file = new File(filename);
@@ -97,7 +99,7 @@ public class Read_XML {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        finally {return org;}
+        finally {sort(org); return org;}
 
     }
 }
